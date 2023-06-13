@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>야구게임</title>
+</head>
+<body>
+    <input type="number" class="user_input" onchange = "checkUserinput()"/>
+    
+    <script>
+        // 세자리 숫자를 무작위로 뽑아 반환하는 함수
+        function randomNumber () {
+            num1 = Math.floor(Math.random()*10);
+            num2 = Math.floor(Math.random()*10);
+            while(num2 === num1){
+                num2 = Math.floor(Math.random()*10);
+            }
+            num3 = Math.floor(Math.random()*10);
+            while(num3 === num1 || num3 === num2){
+                num3 = Math.floor(Math.random()*10);
+            }
+            
+            return `${num1}${num2}${num3}`
+        }
+
+        //사용자가 입력한 수와 미리 만들어진 수를 비교해 몇S몇B인지 문자열을 반환하는 함수
+        // userInput 문자열로 넣어주고 cpInput도 문자열로 넣어주자
+
+        function countSB (userInput,cpInput) {
+            let S = 0;
+            let B = 0;
+            for (let i=0; i < userInput.length ; i++){
+                for (let j=0; j < userInput.length; j++) {
+                    if(userInput[i] === cpInput[j]) {
+                        if(i === j)
+                            S+=1;
+                        else
+                            B += 1 ;
+                    }
+                }
+            }
+            return (B===0 ? '' : `${B}B`) + (S===0? '' : `${S}S`);
+        }
+
+
+        const inputType = document.querySelector('.user_input');
+        // 첫번째 함수 호출
+        const cpNum = randomNumber();
+        //(반복문) 3S가 될 때 까지 반복 
+        let result = '';
+        let userInput = '';
+        let challenge = 0;
+        function checkUserinput(){
+            challenge += 1;
+            //몇번째 시도 : 유저입력한거
+            console.log(`${challenge}번째 시도: `);
+        
+            user_input = inputType.value;
+        
+            //유저입력과 cpNum을 비교
+            result = countSB(user_input, cpNum);
+        
+            console.log(result)
+        
+            if(result === '3S'){
+                console.log(
+                    `${challenge}번째 만에 맞추셨습니다.\n게임을 종료합니다.`
+                );
+                inputType.onchange = '';
+            }
+        }
+
+    </script>
+    
+</body>
+</html>
