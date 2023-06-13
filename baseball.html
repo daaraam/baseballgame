@@ -6,7 +6,7 @@
     <title>야구게임</title>
 </head>
 <body>
-    <input type="number" class="user_input" onchange = "checkUserinput()"/>
+    <input type="text" maxlength="3" class="user_input" onchange = "checkUserinput()"/>
     
     <script>
         // 세자리 숫자를 무작위로 뽑아 반환하는 함수
@@ -54,13 +54,13 @@
         function checkUserinput(){
             challenge += 1;
             //몇번째 시도 : 유저입력한거
-            console.log(`${challenge}번째 시도: `);
-        
             user_input = inputType.value;
+            console.log(`${challenge}번째 시도: ${user_input}`);
+            result = countSB(user_input, cpNum);
+            
         
             //유저입력과 cpNum을 비교
-            result = countSB(user_input, cpNum);
-        
+            
             console.log(result)
         
             if(result === '3S'){
